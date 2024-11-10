@@ -26,16 +26,12 @@ def compare_files_in_directories(dir1, dir2, file_extension):
 
     return differences
 
-if __name__ == "__main__":
-    #dir1_path = input("Enter the first directory path: ")
-    #dir2_path = input("Enter the second directory path: ")
-    #ext = input("Enter the file extension (e.g., .txt): ")
-    dir1_path = '../src'
-    dir2_path = '../../../gitlab/montty/src'
-    ext = '.py'
-    
-    diff_files = compare_files_in_directories(dir1_path, dir2_path, ext)
-    
+def do_compare(dir1, dir2, file_extension):
+    diff_files = compare_files_in_directories(dir1, dir2, file_extension)
+   
+    print('-' * 70)
+    print(f'Comparing dir1 {dir1}\n          dir2 {dir2}\n          extension {file_extension}')
+
     if diff_files:
         print("Differences found between the following files:")
         for file1, file2 in diff_files:
@@ -44,9 +40,14 @@ if __name__ == "__main__":
         print("No differences found among common files.")
 
 
-#if __name__ == "__main__":
-#    dir1_path = '../'
-#    dir2_path = '../../../gitlab/montty'
-#    ext = '.py'
-#    do_compare(dir1_path, dir2_path, ext)
+if __name__ == "__main__":
+    dir1 = '../src'
+    dir2 = '../../../gitlab/montty/src'
+    file_extension = '.py'
+    do_compare(dir1, dir2, file_extension)
+    
+    dir1 = '../test'
+    dir2 = '../../../gitlab/montty/test'
+    file_extension = '.py'
+    do_compare(dir1, dir2, file_extension)
     
