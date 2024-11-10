@@ -9,7 +9,7 @@ Links
 * Documentation: `docs <https://github.com/GwynDavies/montty/blob/main/docs>`_
 * Source: `src/montty <https://github.com/GwynDavies/montty/blob/main/src/montty>`_
 * Issues: `issues <https://github.com/GwynDavies/montty/issues>`_
-* Contributing: `CONTRIBUTING.md <https://github.com/GwynDavies/montty/CONTRIBUTING.md>`_
+* Contributing: `CONTRIBUTING.md <https://github.com/GwynDavies/montty/blob/main/CONTRIBUTING.md>`_
 
 
 Disclaimer
