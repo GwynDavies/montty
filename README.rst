@@ -5,7 +5,7 @@ Links
 -----
 
 * Open Source MIT license: `LICENSE <https://github.com/GwynDavies/montty/blob/main/LICENSE>`_
-* Installation: `INSTALLATION.md <https://github.com/GwynDavies/montty/INSTALLATION.md>`_
+* Installation: `INSTALLATION.md <https://github.com/GwynDavies/montty/blob/main/INSTALLATION.md>`_
 * Documentation: `docs <https://github.com/GwynDavies/montty/tree/main/docs>`_
 * Source: `src/montty <https://github.com/GwynDavies/montty/blob/main/src/montty>`_
 * Issues: `issues <https://github.com/GwynDavies/montty/issues>`_
