@@ -70,14 +70,31 @@ def do_compare(dir1, dir2, file_extension):
 
 
 def main():
+    # ..
+
+    dir1 = '..'
+    dir2 = '../../gitlab/montty'
+    file_extension = '.toml'
+    do_compare(dir1, dir2, file_extension)
+    file_extension = '.md'
+    do_compare(dir1, dir2, file_extension)
+
+    # ../src
+
     dir1 = '../src'
     dir2 = '../../../gitlab/montty/src'
     file_extension = '.py'
     do_compare(dir1, dir2, file_extension)
+    file_extension = '.sh'
+    do_compare(dir1, dir2, file_extension)
+
+    # test
 
     dir1 = '../test'
     dir2 = '../../../gitlab/montty/test'
     file_extension = '.py'
+    do_compare(dir1, dir2, file_extension)
+    file_extension = '.sh'
     do_compare(dir1, dir2, file_extension)
 
 
