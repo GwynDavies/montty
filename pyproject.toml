@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "montty"
 version = "0.0.9"
 authors = [
-  {name="Gwyn Davies", email="gwynmdavies@cox.ne"},
+  {name="Gwyn Davies", email="gwynmdavies@cox.net"},
 ]
 maintainers = [
   {name = "Gwyn Davies", email = "gwynmdavies@cox.net"}
