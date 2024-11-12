@@ -20,8 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# See associated open source license here:
-#     https://github ...
 
 from montty.app.check.root_check import RootCheck
 from montty.app.check.bash_check import BashCheck
