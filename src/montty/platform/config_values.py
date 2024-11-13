@@ -59,13 +59,6 @@ class ConfigValues:
         "SOFTWARE.",
     ]
 
-    GITHUB_TEXT = [
-        "MonTTY project is at:",
-        "  https://github.com/GwynDavies/montty",
-        "Please log issues at",
-        "  https://github.com/GwynDavies/montty/issues",
-    ]
-
     #####################
     # SCREEN / TERMINAL #
     #####################
