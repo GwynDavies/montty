@@ -15,7 +15,8 @@ description = "MonTTY (Monitoring TTY), create system/security checks for Linux 
 requires-python = ">= 3.9"
 dependencies = [
   "psutil", 
-  "build"
+  "build",
+  "keyrings.alt"
 ]
 readme = "README.rst"
 license = {file = "LICENSE"}

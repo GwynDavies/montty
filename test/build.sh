@@ -38,11 +38,11 @@ option_1() {
     current_dir=$(pwd)
     cd ..
     source ./venv/bin/activate
-	clear
-	pip uninstall -y montty
-	pip install -e .
-	pip list
-	pip install -e .[dev]
+    clear
+    pip uninstall -y montty
+    pip install -e .
+    pip list
+    pip install -e .[dev]
     cd "$current_dir" || exit
 }
 
@@ -50,13 +50,13 @@ option_2() {
     current_dir=$(pwd)
     cd ..
     source ./venv/bin/activate
-	clear
-	rm -f ./*.whl
-	rm -rf src/montty.egg-info
-	rm -rf build
-	rm -rf dist
-	python -m build --sdist
-	python -m build --wheel
+    clear
+    rm -f ./*.whl
+    rm -rf src/montty.egg-info
+    rm -rf build
+    rm -rf dist
+    python -m build --sdist
+    python -m build --wheel
 }
 
 clear
