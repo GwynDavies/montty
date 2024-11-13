@@ -27,7 +27,7 @@ from montty.io.dir.install_dir import InstallDir
 from montty.io.file.file_util import FileUtil
 from montty.montty_meta import MonttyMeta
 from montty.platform.config_values import ConfigValues
-from montty_deploy.deploy_dir import DeployDir
+from montty.montty_deploy.deploy_dir import DeployDir
 
 
 class CopyItem:
