@@ -32,7 +32,7 @@ class TestSubject():
 
     def test_ip(self):
         subject = Subject()
-        ip = "192.168.0.42"
+        ip = "192.0.2.2"
         subject.set_ip(ip)
         assert subject.get_ip() == ip
 
