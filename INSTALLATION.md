@@ -108,9 +108,9 @@ You will need to perform these steps using a terminal or console, on the **all M
 - [ ] *Recommended* - Create Git project, on server such as *GitHub* or *GitLab*, etc.
 - [ ] *Recommended* - Check the command line git client is installed
 
-Use of git to control the check you develop is recommended
+Use of git to control the checks you develop for MonTTY is recommended
 
-If you do want to use git, check it is installed as follows 
+If you do want to use git, make sure it is installed as follows 
 
 You should be able to install it, your Linux distribution's package manager:
 
@@ -138,15 +138,6 @@ $ sudo passwd <MonTTY user>
 Change MonTTY user's shell to bash if it is not already
 $ sudo chsh -s /bin/bash <MonTTY user>
 
-
-<Login or become the created MonTTY user>
-
-$ crontab -l
-  no crontabs for mtyuser
-
-
-<As another user with admin privileges>
-
 $ sudo crontab -u <MonTTY user> -l
   no crontabs for mtyuser
 
@@ -154,14 +145,10 @@ $ sudo crontab -u <MonTTY user> -l
 Examples:
     $ sudo useradd -m mtyuser
     $ sudo passwd mtyuser
+
     $ sudo chsh -s /bin/bash mtyuser
 
-
-    $ crontab -l
-      no crontabs for mtyuser
-    
-
-    $ crontab -u mtyuser -l
+    $ sudo crontab -u mtyuser -l
       no crontabs for mtyuser
 
 ```
@@ -186,10 +173,10 @@ You can grant these sudo privileges as described here in two (possibly other) di
 
 #### Creating a file for the MonTTY user under /etc/sudoers.d
 
-On recent Linux distributions, you can navigate to the **/etc/sudoers.d** directory and:
+On recent Linux distributions (e.g. Debian and Ubuntu LTS), you can navigate to the **/etc/sudoers.d** directory and:
 
 * Create a file, usually with the name of the user, to grant sudo privilege(s)
-* However, this convention is not actually necessary, as sudo will scan all files in this directory as needed
+* However, this convention is not actually necessary, as sudo should scan all files in this directory as needed
 
 For example, to allow the *MonTTY user* to perform the commands, for the two provided example checks, that require *sudo* you would add :
 
@@ -199,11 +186,10 @@ For example, to allow the *MonTTY user* to perform the commands, for the two pro
 Example:
     mtyuser ALL=NOPASSWD: /usr/sbin/ufw status verbose,/usr/bin/lsof -i
 
-        For provided example check file _chk_005_cld_bash_sudo_ufw.py, add:
-            /usr/sbin/ufw status verbose
-
-        For provided example check file _chk_006_cld_bash_data_sudo_lsof.py, add: 
-            /usr/bin/lsof -i
+This is for provided example check file _chk_005_cld_bash_sudo_ufw.py, add:
+    "/usr/sbin/ufw status verbose"
+Also for provided example check file _chk_006_cld_bash_data_sudo_lsof.py, add: 
+    "/usr/bin/lsof -i"
 
 ```
 
@@ -211,7 +197,7 @@ Example:
 
 #### Alternatively using 'visudo'
 
-As an alternative, you can edit the **Sudoers File** - preferably with the **visudo** command:
+As an alternative (e.g. for RHEL), you can edit the **Sudoers File** - preferably with the **visudo** command:
 
 ```
 $ sudo visudo
@@ -231,12 +217,6 @@ For example, to allow the MonTTY user, to perform the commands for the two provi
 Example:
     mtyuser ALL=NOPASSWD: /usr/sbin/ufw status verbose,/usr/bin/lsof -i
 
-        For provided example check file _chk_005_cld_bash_sudo_ufw.py, add:
-            /usr/sbin/ufw status verbose
-
-        For provided example check file _chk_006_cld_bash_data_sudo_lsof.py, add: 
-            /usr/bin/lsof -i
-
 ```
 
 <br/>
@@ -252,10 +232,10 @@ Example:
 Just login as the *MonTTY user* or become the user:
 
 ```
-$ sudo - <MonTTY user>
+$ sudo su - <MonTTY user>
 
 Example:
-    $ sudo - mtyuser
+    $ sudo su - mtyuser
 
 ```
 
@@ -358,7 +338,7 @@ $ source venv/bin/activate
 
 The terminal prompt should now be prefixed with (venv) and look something like this:
 
-  (venv) <user>:<path> $
+  (venv) <user>@<host>:<path> $
 
 ```
 
