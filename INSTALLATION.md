@@ -442,7 +442,7 @@ venv
 ## 4 - STEPS FOR THE MonTTY SERVER HOST
 
 <br/>
-Make sure you have first completed the steps for **"3 - STEPS FOR ALL HOSTS"**
+Make sure you have first completed the steps for: **3 - STEPS FOR ALL HOSTS**
 <br/>
 
 ### Configure crontab for MonTTY Manager app
@@ -564,7 +564,7 @@ The check report should be displayed
 ## 5 - STEPS FOR *EACH* MonTTY CHECKED HOST
 
 <br/>
-Make sure you have first completed the steps for **"3 - STEPS FOR ALL HOSTS"**
+Make sure you have first completed the steps for: **3 - STEPS FOR ALL HOSTS**
 <br/>
 
 Now you have the MonTTY server configured as above, you need to perform the following steps, **on each of the MonTTY checked hosts**
