@@ -442,7 +442,9 @@ venv
 ## 4 - STEPS FOR THE MonTTY SERVER HOST
 
 <br/>
+
 Make sure you have first completed the steps for: **3 - STEPS FOR ALL HOSTS**
+
 <br/>
 
 ### Configure crontab for MonTTY Manager app
@@ -564,7 +566,9 @@ The check report should be displayed
 ## 5 - STEPS FOR *EACH* MonTTY CHECKED HOST
 
 <br/>
+
 Make sure you have first completed the steps for: **3 - STEPS FOR ALL HOSTS**
+
 <br/>
 
 Now you have the MonTTY server configured as above, you need to perform the following steps, **on each of the MonTTY checked hosts**
@@ -706,7 +710,7 @@ If this setting is 'no', then you will probably have to find another way
 Do not just change this setting even if you have the access, as it might not be inaccordance
 with your organization's  policies and procedures
 
-If you do change this setting, you will need to restart teh sshd:
+If you do change this setting, you will need to restart the sshd:
 
 ```
 $ sudo systemctl restart sshd
