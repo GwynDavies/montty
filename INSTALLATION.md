@@ -331,7 +331,7 @@ $ python3 -m venv venv
 
 #### Activate Python virtual environment
 
-- [ ] **Required** - Activate the Python virtual environment is activated
+- [ ] **Required** - Activate the Python virtual environment, by "source'ing" venv
 
 ```
 $ source venv/bin/activate
@@ -441,6 +441,8 @@ venv
 
 ## 4 - STEPS FOR THE MonTTY SERVER HOST
 
+<br/>
+Make sure you have first completed the steps for **"3 - STEPS FOR ALL HOSTS"**
 <br/>
 
 ### Configure crontab for MonTTY Manager app
@@ -562,6 +564,8 @@ The check report should be displayed
 ## 5 - STEPS FOR *EACH* MonTTY CHECKED HOST
 
 <br/>
+Make sure you have first completed the steps for **"3 - STEPS FOR ALL HOSTS"**
+<br/>
 
 Now you have the MonTTY server configured as above, you need to perform the following steps, **on each of the MonTTY checked hosts**
 
@@ -640,7 +644,7 @@ The public key for the key-pair needs to be deployed on the MonTTY server:
 <br/>
 <br/>
 
-#### Ensure .ssh directory exists for the *MonTTY user* on the server host
+#### Ensure .ssh directory exists for the *MonTTY user* on the MonTTY server host
 
 - [ ] **Required** - Ensure .ssh directory exists for the *MonTTY user* on the server host
 
@@ -702,16 +706,24 @@ If this setting is 'no', then you will probably have to find another way
 Do not just change this setting even if you have the access, as it might not be inaccordance
 with your organization's  policies and procedures
 
-<br/>
-
-##### Copy public key with interactive login
+If you do change this setting, you will need to restart teh sshd:
 
 ```
- $ cat ~/.ssh/id_<key type>.pub | ssh <MonTTY user>@<MonTTY server [hostname|ip address] 'cat >> ~/.ssh/authorized_keys'
+$ sudo systemctl restart sshd
+$ sudo systemctl status sshd
 
+```
+<br/>
+
+##### Copy public key from remote host
+
+Make sure you select the **public** key (.pub):
+
+```
+$ cat ~/.ssh/id_<key type>.pub | ssh <MonTTY user>@<MonTTY server [hostname|ip address] 'cat >> ~/.ssh/authorized_keys'
 
 Example:
- $ cat ~/.ssh/id_ed25519.pub | ssh mtyuser@192.0.2.0 'cat >> ~/.ssh/authorized_keys'
+$ cat ~/.ssh/id_ed25519.pub | ssh mtyuser@192.0.2.0 'cat >> ~/.ssh/authorized_keys'
 
 ```
 
@@ -732,7 +744,10 @@ $ touch test_file.txt
 $ scp test_file.txt <MonTTY user>@<MonTTY server hostname or IP addr>:<path of MonTTY project REPORTS/_input directory>
 
 Example:
-    $ scp mtyuser@192.0.2.0:~/montty/REPORTS/_input 
+
+$ scp test_file.txt mtyuser@192.0.2.0:~/montty/REPORTS/_input 
+
+The file test_file.txt should get transferred to the MonTTY server
 
 ```
 
