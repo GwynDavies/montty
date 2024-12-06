@@ -24,14 +24,18 @@
 # Dependencies:
 #
 #     BASH_SCRIPTS/mty_util/mtyhost.sh
-#     BASH_SCRIPTS/check_listening_ports_with_ss.sh
+#     BASH_SCRIPTS/mty_util/mtyservice.sh
 #
 # Description:
 #
-#     Runs the same BaSH script as chk_001_bash_listening_ports_with_ss.py to check
-#     listening ports
+#     Check that the "Debian based" SystemD service - 'unattended-upgrades' is:
+#         - Installed,
+#         - Enabled,
+#         - Active
 #
-#     Also runs a filter to check that - 'HOST not equal "fakehost1"'
+#     $ sudo apt update
+#     $ sudo apt dist-upgrade
+#     $ sudo apt install unattended-upgrades
 #
 
 from montty.app.check.check import Check
@@ -40,19 +44,19 @@ from montty.app.check.collect_filter_check import CollectFilterCheck
 from montty.app.check.bash_check import BashCheck
 
 
-class CheckFilterSSPorts(RootCheck, CollectFilterCheck):
+class CheckFilterUnattendedUpgrades(RootCheck, CollectFilterCheck):
     def __init__(self):
-        self._header_title = 'chk_004_clf_bash_ss.py - Check FILTER'
+        self._header_title = 'chk_007_clf_debian_ubuntu_unattended_upgrades.py - Check FILTER'
         super().__init__(self._header_title, level_index=0)
 
         self._check_filter = CheckFilter()
 
-        self._check_ss_ports = CheckSSPorts()
+        self._check_unattended_upgrades = CheckUnattendedUpgrades()
 
     # @implement
     def _add_checks(self, checks: list[Check]) -> None:
         checks.append(self._check_filter)
-        checks.append(self._check_ss_ports)
+        checks.append(self._check_unattended_upgrades)
 
 
 # --------------------------------------------------------------------
@@ -61,19 +65,21 @@ class CheckFilterSSPorts(RootCheck, CollectFilterCheck):
 
 class CheckFilter(BashCheck):
     def __init__(self):
-        header_title = ' (f) Filter HOST not equal "fakehost1"'
+        header_title = ' (f) Filter DISTRO in "debian / ubuntu"'
         bash_script = 'mty_util/mtyhost.sh'
-        arg1 = 'host_not_eq'
-        arg2 = 'fakehost1'
+        arg1 = 'distro_in'
+        arg2 = 'debian\nubuntu'
         super().__init__(header_title, bash_script, arg1, arg2, level_index=1)
 
 
 # --------------------------------------------------------------------
-# Listening ports check
+# Unattened upgrades service
 # --------------------------------------------------------------------
 
-class CheckSSPorts(BashCheck):
+class CheckUnattendedUpgrades(BashCheck):
     def __init__(self):
-        header_title = ' (f) CheckSSPorts - LISTENING TCP PORTS'
-        bash_script = 'check_listening_ports_with_ss.sh'
-        super().__init__(header_title, bash_script, level_index=1)
+        header_title = ' (f) Check Service - UNATTENDED UPGRADES'
+        bash_script = 'mty_util/mtyservice.sh'
+        arg1 = 'installed_enabled_active'
+        arg2 = 'unattended-upgrades'
+        super().__init__(header_title, bash_script, arg1, arg2, level_index=1)

@@ -36,7 +36,6 @@
 from datetime import datetime
 import psutil
 from montty.app.status import Status
-from montty.app.check.check import Check
 from montty.app.check.check_body import CheckBody
 from montty.app.check.python_check import PythonCheck
 

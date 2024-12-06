@@ -22,7 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Function to get the Linux distribution
+#-----------------------------------------------#
+# Linux Distribution [debian, ubuntu, rhel ...] #
+#-----------------------------------------------#
 
 detect_distro() {
     if [ -f /etc/os-release ]; then
@@ -33,26 +35,59 @@ detect_distro() {
     fi
 }
 
-# Is current Linux distro eq to (e.g. rhel, debian ...)
 distro_eq() {
-  current_distro=$(detect_distro)
-  to_distro=$1
-  echo "-> Test distro_eq ${to_distro} = $current_distro"
-  [ "${current_distro}" = "${to_distro}" ] && exit 0 || exit 254
+    current_distro=$(detect_distro)
+    local to_distro=$1
+    echo "-> Test distro_eq ${to_distro} = $current_distro"
+    [ "${current_distro}" = "${to_distro}" ] && exit 0 || exit 254
 }
 
-# host_eq <to hostname>
+distro_not_eq() {
+    current_distro=$(detect_distro)
+    local to_distro=$1
+    echo "-> Test distro_not_eq ${to_distro} = $current_distro"
+    [ "${current_distro}" != "${to_distro}" ] && exit 0 || exit 254
+}
+
+# distro_in <to distros>
+#   to_distros ... list of distros to check against, separate names by \n
+#     distro1
+#     distro1\n
+#     distro1\ndistro2\n
+#     distro1\ndistro2
+distro_in() {
+    local to_distros=$1
+    echo "-> Test distro_in $to_distros"
+    detect_distro | /usr/bin/grep -q -w -F -f <(echo -e "${to_distros}") && exit 0 || exit 254
+}
+
+# distro_not_in <to distros>
+#   to_distros ... list of distros to check against, separate names by \n
+#     distro1
+#     distro1\n
+#     distro1\ndistro2\n
+#     distro1\ndistro2
+distro_not_in() {
+    local to_distros=$1
+    echo "-> Test distro_not_in $to_distros"
+    detect_distro | /usr/bin/grep -q -w -F -f <(echo -e "${to_distros}") && exit 254 || exit 0
+}
+
+#----------#
+# Hostname #
+#----------#
+
 host_eq() {
-  to_hostname=$1
-  echo "-> Test host_eq ${to_hostname}"
-  [ "$(hostname)" = "${to_hostname}" ] && exit 0 || exit 254
+    local to_hostname=$1
+    echo "-> Test host_eq ${to_hostname}"
+    [ "$(hostname)" = "${to_hostname}" ] && exit 0 || exit 254
 }
 
 # host_not_eq <to hostname>
 host_not_eq() {
-  to_hostname=$1
-  echo "-> Test host_not_eq ${to_hostname}"
-  [ "$(hostname)" != "${to_hostname}" ] && exit 0 || exit 254
+    local to_hostname=$1
+    echo "-> Test host_not_eq ${to_hostname}"
+    [ "$(hostname)" != "${to_hostname}" ] && exit 0 || exit 254
 }
 
 # host_in <to hostnames>
@@ -62,9 +97,9 @@ host_not_eq() {
 #     hostname1\nhostname2\n
 #     hostname1\nhostname2
 host_in() {
-  to_hostnames=$1
-  echo "-> Test host_in $to_hostnames"
-  hostname | /usr/bin/grep -q -w -F -f <(echo -e "${to_hostnames}") && exit 0 || exit 254
+    local to_hostnames=$1
+    echo "-> Test host_in $to_hostnames"
+    hostname | /usr/bin/grep -q -w -F -f <(echo -e "${to_hostnames}") && exit 0 || exit 254
 }
 
 # host_not_in <to hostnames>
@@ -74,9 +109,9 @@ host_in() {
 #     hostname1\nhostname2\n
 #     hostname1\nhostname2
 host_not_in() {
-  to_hostnames=$1
-  echo "-> Test host_not_in $to_hostnames"
-  hostname | /usr/bin/grep -q -w -F -f <(echo -e "${to_hostnames}") && exit 254 || exit 0
+    local to_hostnames=$1
+    echo "-> Test host_not_in $to_hostnames"
+    hostname | /usr/bin/grep -q -w -F -f <(echo -e "${to_hostnames}") && exit 254 || exit 0
 }
 
 #------#
@@ -87,24 +122,38 @@ CMD=$1
 ARGS=$2
 
 case "$CMD" in
+    # Distro(s)
+ 
     distro_eq)
         distro_eq  "$ARGS" 
         ;;
+    distro_not_eq)
+        distro_not_eq  "$ARGS" 
+        ;;
+
+    distro_in)
+        distro_in  "$ARGS" 
+        ;;
+    distro_not_in)
+        distro_not_in  "$ARGS" 
+        ;;
+
+    # Hostname(s)
+ 
     host_eq)
         host_eq  "$ARGS" 
         ;;
     host_not_eq)
         host_not_eq  "$ARGS" 
         ;;
+
     host_in)
         host_in  "$ARGS" 
         ;;
     host_not_in)
         host_not_in  "$ARGS" 
         ;;
-    ss)
-        cmd_ss "$ARGS" 
-        ;;
+
     *)
         echo "Unsupported command $CMD"
         exit 1

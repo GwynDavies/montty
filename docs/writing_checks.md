@@ -95,6 +95,8 @@ MonTTY comes with some *example* check files:
 | chk_004_clf_bash_ss.py | Collection/Filter | bash | None | Listening ports with ss command |
 | _chk_005_cld_bash_sudo_ufw.py | Collection/Depend | bash | sudo | Uncomplicated Fire Wall (UFW), DISABLED BY DEFAULT AS REQUIRES CERTAIN SUDO PRIVILEGES, remove leading "_" character to activate |
 | _chk_006_cld_bash_data_sudo_lsof.py | Collection/Depend | bash | sudo, data file | Outgoing port connections with lsof command, DISABLED BY DEFAULT AS REQUIRES CERTAIN SUDO PRIVILEGES, remove leading "_" character to activate |
+| chk_007_clf_debian_ubuntu_unattended_upgrades.py | Collection/Filter | bash | None | Debian based package "unattended-upgrades" is installed, enabled and active |
+| chk_008_clf_rhel_dnf_automatic.py | Collection/Filter | bash | RHEL only | RHEL based package "dnf-automatic" is installed, enabled and active |
 
 <br/>
 <br/>

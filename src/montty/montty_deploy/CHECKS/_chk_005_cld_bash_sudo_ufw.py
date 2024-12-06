@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
 # Note:
@@ -31,25 +30,20 @@
 #
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
 #
 # Dependencies:
 #
-#     BASH_SCRIPTS/mty_util/mtyufw.sh installed
-#     BASH_SCRIPTS/mty_util/mtyufw.sh sudo_ability
-#     BASH_SCRIPTS/mty_util/mtyufw.sh rules
+#     BASH_SCRIPTS/mty_util/mtyufw.sh
 #
 # Description:
 #
 #     Runs BaSH scripts to check:
-#
 #         - Uncomplicated FireWall (UFW) is installed
 #         - The user has the ability to run the required sudo command, to get
 #               the current UFW rules
 #         - Runs the sudo command, to get the UFW rules, and check they are
 #               as expected
 #
-
 
 from montty.app.status import Status
 from montty.app.check.check import Check

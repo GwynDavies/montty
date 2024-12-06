@@ -20,6 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+#
+# Dependencies:
+#
+#     BASH_SCRIPTS/check_listening_ports_with_ss.sh
+#
+# Description:
+#
+#     Check listening ports, using Linux "ss" command '''
+#
 
 from montty.app.check.root_check import RootCheck
 from montty.app.check.bash_check import BashCheck

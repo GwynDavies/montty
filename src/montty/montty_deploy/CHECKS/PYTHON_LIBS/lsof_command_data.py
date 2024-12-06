@@ -21,7 +21,6 @@
 # SOFTWARE.
 
 import csv
-import os
 
 
 class LsofRowValue:

@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 #
 # Dependencies:
 #
@@ -32,14 +31,11 @@
 #         a package under PYTHON_LIBS
 #
 
-
-# These classes are in system_data in the CHECKS/PYTHON_LIBS dir
 from system_data import SystemCpuDataCheck
 from system_data import SystemMemDataCheck
 from system_data import SystemDiskDataCheck
 from system_data import SystemNetDataCheck
 from system_data import SystemBootDataCheck
-
 from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
 from montty.app.check.collect_all_check import CollectAllCheck

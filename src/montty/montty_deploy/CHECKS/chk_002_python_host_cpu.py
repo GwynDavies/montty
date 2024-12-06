@@ -20,12 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+#
+# Dependencies:
+#
+#     CHECKS/PYTHON_LIBS/system_data.py
+#
+# Description:
+#
+#     Check system cpu data using python based check
+#
 
-# "Python based check"
-
-# This class is in system_data in the CHECKS/PYTHON_LIBS dir
 from system_data import SystemCpuDataCheck
-
 from montty.app.check.check_body import CheckBody
 from montty.app.check.python_check import PythonCheck
 from montty.app.check.root_check import RootCheck
@@ -36,12 +41,12 @@ class CheckHostCpu(RootCheck, PythonCheck):
     def __init__(self):
         header_title = 'chk_002_python_host_cpu.py - HOST CPU'
         super().__init__(header_title)
-        self._cpu_check = SystemCpuDataCheck()
+        self.cpu_check = SystemCpuDataCheck()
 
     # @implement
     def _run_class(self) -> None:
-        self._cpu_check._run_class()
+        self.cpu_check._run_class()
 
     # @implement
     def _set_class_result(self, status: Status, body: CheckBody) -> None:
-        self._cpu_check._set_class_result(status, body)
+        self.cpu_check._set_class_result(status, body)

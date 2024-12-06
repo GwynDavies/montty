@@ -74,6 +74,8 @@ echo "| host_in                                                            |"
 echo "'--------------------------------------------------------------------'"
 echo ""
 
+# Single hostname
+
 test_title "T2a: Single hostname, no trailing \\n"
 output=$(./mtyhost.sh host_in "$(hostname)");exit_code=$?
 test_exit_code "$output" $exit_code 0
@@ -90,19 +92,21 @@ test_title "T3b: NOT found in single hostname, with trailing \\n"
 output=$(./mtyhost.sh host_in "bad\n");exit_code=$?
 test_exit_code "$output" $exit_code 254
 
-test_title "T4a: Found in double hostname, with current first"
+# Double hostnames
+
+test_title "T4a: Found in double hostnames, with current first"
 output=$(./mtyhost.sh host_in "$(hostname)\nbad\n");exit_code=$?
 test_exit_code "$output" $exit_code 0
 
-test_title "T4b: NOT found in double hostname, with current first"
+test_title "T4b: NOT found in double hostnames"
 output=$(./mtyhost.sh host_in "bad1\nbad2\n");exit_code=$?
 test_exit_code "$output" $exit_code 254
 
-test_title "T5a: Found in double hostname, with current second"
+test_title "T5a: Found in double hostnames, with current second"
 output=$(./mtyhost.sh host_in "bad\n$(hostname)\n");exit_code=$?
 test_exit_code "$output" $exit_code 0
 
-test_title "T5b: Found in double hostname, with current second and no trailing \n"
+test_title "T5b: Found in double hostnames, with current second and no trailing \n"
 output=$(./mtyhost.sh host_in "bad\n$(hostname)");exit_code=$?
 test_exit_code "$output" $exit_code 0
 
@@ -133,6 +137,50 @@ test_exit_code "$output" $exit_code 0
 test_title "T7b: NOT match for debian distro"
 output=$(./mtyhost.sh distro_eq rhel);exit_code=$?
 test_exit_code "$output" $exit_code 254
+
+echo ""
+echo ".----------------------------------------------------------------------."
+echo "| distro_in                                                            |" 
+echo "'----------------------------------------------------------------------'"
+echo ""
+. /etc/os-release
+this_distro=$ID
+
+# Single distro
+
+test_title "T8a: Single distro, no trailing \\n"
+output=$(./mtyhost.sh distro_in "${this_distro}");exit_code=$?
+test_exit_code "$output" $exit_code 0
+
+test_title "T8b: NOT found in distro, no trailing \\n"
+output=$(./mtyhost.sh distro_in bad);exit_code=$?
+test_exit_code "$output" $exit_code 254
+
+test_title "T8a: Found in single distro, with trailing \\n"
+output=$(./mtyhost.sh distro_in "${this_distro}\n");exit_code=$?
+test_exit_code "$output" $exit_code 0
+
+test_title "T8b: NOT found in single distro, with trailing \\n"
+output=$(./mtyhost.sh distro_in "bad\n");exit_code=$?
+test_exit_code "$output" $exit_code 254
+
+# Double distros
+
+test_title "T8a: Found in double distros, with current first"
+output=$(./mtyhost.sh distro_in "${this_distro}\nbad\n");exit_code=$?
+test_exit_code "$output" $exit_code 0
+
+test_title "T8b: NOT found in double distros"
+output=$(./mtyhost.sh distro_in "bad1\nbad2\n");exit_code=$?
+test_exit_code "$output" $exit_code 254
+
+test_title "T8a: Found in double dsitros, with current second"
+output=$(./mtyhost.sh distro_in "bad\n${this_distro}\n");exit_code=$?
+test_exit_code "$output" $exit_code 0
+
+test_title "T8b: Found in double distrox, with current second and no trailing \n"
+output=$(./mtyhost.sh distro_in "bad\n${this_distro}");exit_code=$?
+test_exit_code "$output" $exit_code 0
 
 echo ""
 echo "---------------------------------E n d--------------------------------" 

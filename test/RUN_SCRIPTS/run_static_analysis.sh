@@ -44,5 +44,9 @@ autopep8 -r -i ./
 # R0904 - Too many public methods 
 # R0912 - Too many branches
 #
+
+export PYTHONPATH=../src/montty/montty_deploy/CHECKS/PYTHON_LIBS
 pylint --verbose --disable "C0103,C0114,C0115,C0116,C0301,R0801,R0903,R0904,R0912,R1702,W0719" --recursive y ../src/
 pylint --verbose --disable "C0103,C0114,C0115,C0116,C0301,R0801,R0903,R0904,R0912,R1702,W0719" --recursive y ./
+
+

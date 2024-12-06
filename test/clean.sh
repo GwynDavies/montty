@@ -30,13 +30,13 @@ clean()
     cd ..
 
     rm -f run.sh
-    cp  src/montty_deploy/run.sh .
+    cp  src/montty/montty_deploy/run.sh .
 
     rm -f spy.sh
-    cp  src/montty_deploy/spy.sh .
+    cp  src/montty/montty_deploy/spy.sh .
 
     rm -rf CHECKS 
-    cp -R src/montty_deploy/CHECKS .
+    cp -R src/montty/montty_deploy/CHECKS .
 
     cd "$current_dir" || exit
 }

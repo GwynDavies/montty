@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
 # Note:
@@ -31,13 +30,11 @@
 #
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
 #
 # Dependencies:
 #
 #     DATA_FILES/chk_006_lsof.csv
-#     BASH_SCRIPTS/mty_util/mtylsof.sh sudo_ability
-#     BASH_SCRIPTS/mty_util/mtylsof.sh ports
+#     BASH_SCRIPTS/mty_util/mtylsof.sh
 #
 # Description:
 #
@@ -57,10 +54,8 @@
 #               "data file". This file is under the DATA_FILES sub-directory
 #
 
-
 # Self not available in Python 3.9, needs 3.11
 #   from typing import Self
-from lsof_command_data import LsofRowValue
 from lsof_command_data import AllowedLsofRowValues
 from lsof_command_data import ActualLsofRowValues
 from montty.app.status import Status
