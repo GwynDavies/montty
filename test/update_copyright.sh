@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#grep -RH "2024 Gwyn" ../
+#grep -RH "2024 Gwyn" .
 
 #sed -i 's/(c) 2024 Gwyn/(c) 2024-2025 Gwyn/' ../LICENSE
 #sed -i 's/(c) 2024 Gwyn/(c) 2024-2025 Gwyn/' ../README.rst
