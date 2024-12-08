@@ -87,7 +87,7 @@ class FileReader:
                     elif value.upper() == Status.ALERT:
                         subject.set_status_alert()
                     else:
-                        raise Exception("Status value not recognized")
+                        raise Exception(f"Status value not recognized -> {value.upper()}")
                 elif keyword.upper() == "AT":
                     subject.set_at(value)
                 else:

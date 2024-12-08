@@ -28,9 +28,8 @@ for file in _chk*; do
   if [[ -f "$file" ]]; then
     # Remove the leading underscore and rename the file
     mv "$file" "${file:1}"
-    # Add the file to the checks.csv file, use tag 'undisabled' 
-    # as a placholder for whatever tag the user might want
-    echo "${file:1}, undisabled" >> checks.csv
   fi
 done
 
+sed -i 's/disabled/collect_check/g' checks.csv 
+sed -i 's/^_chk_/chk_/g' checks.csv 
