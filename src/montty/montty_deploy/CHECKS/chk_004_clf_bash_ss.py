@@ -34,25 +34,18 @@
 #     Also runs a filter to check that - 'HOST not equal "fakehost1"'
 #
 
-from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
-from montty.app.check.collect_filter_check import CollectFilterCheck
+from montty.app.check.collect_depend_check import CollectDependCheck
 from montty.app.check.bash_check import BashCheck
 
 
-class CheckFilterSSPorts(RootCheck, CollectFilterCheck):
+class CheckFilterSSPorts(RootCheck, CollectDependCheck):
     def __init__(self):
         self._header_title = 'chk_004_clf_bash_ss.py - Check FILTER'
         super().__init__(self._header_title, level_index=0)
 
-        self._check_filter = CheckFilter()
-
-        self._check_ss_ports = CheckSSPorts()
-
-    # @implement
-    def _add_checks(self, checks: list[Check]) -> None:
-        checks.append(self._check_filter)
-        checks.append(self._check_ss_ports)
+        super().add_filter_check(CheckFilter())
+        super().add_check(CheckSSPorts())
 
 
 # --------------------------------------------------------------------

@@ -20,22 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from montty.app.check.collect_base_check import CollectBaseCheck
-
-
-class FakeCollectBaseCheck(CollectBaseCheck):
-    def __init__(self, level_index=0):
-        self._header_title = 'Test collection base check'
-        super().__init__(self._header_title,  level_index)
-        self._cpu_percent = None
-
-    # @implement
-    def _add_checks(self, checks) -> None:
-        pass  # pragma: no cover
-
-    # @implement
-    def _run_checks(self) -> None:
-        pass  # pragma: no cover
+from montty.app.check.bash_check import BashCheck
+from .test_fake_checks import FakeCollectBaseCheck
+from .test_fake_checks import FakePythonCheckOkay
 
 
 #########
@@ -44,9 +31,36 @@ class FakeCollectBaseCheck(CollectBaseCheck):
 
 
 class TestCollectbaseCheck():
+
+    def test_get_filter_check(self):
+        collection_check = FakeCollectBaseCheck(level_index=0)
+        assert not collection_check.get_filter_checks()
+        assert not collection_check.get_checks()
+
+        collection_check.add_filter_check(BashCheck("title", "bask_script"))
+        collection_check.run()
+        # Check we now have a filter check, but still no checks
+        assert collection_check.get_filter_checks()
+        assert len(collection_check.get_filter_checks()) == 1
+        assert not collection_check.get_checks()
+        assert len(collection_check.get_checks()) == 0
+
+    def test_get_check(self):
+        collection_check = FakeCollectBaseCheck(level_index=0)
+        assert not collection_check.get_filter_checks()
+        assert not collection_check.get_checks()
+
+        collection_check.add_check(FakePythonCheckOkay())
+        collection_check.run()
+        # Check we now have a check, but no filter checks
+        assert not collection_check.get_filter_checks()
+        assert len(collection_check.get_filter_checks()) == 0
+        assert collection_check.get_checks()
+        assert len(collection_check.get_checks()) == 1
+
     # Ignore warning for accessing internal members
     # pylint: disable=W0212
-    def test_ok(self):
+    def test_na(self):
         collection_check = FakeCollectBaseCheck(
             level_index=0)
         collection_check.run()
@@ -75,8 +89,7 @@ class TestCollectbaseCheck():
     # Ignore warning for accessing internal members
     # pylint: disable=W0212
 
-
-    def test_ok_has_level_1(self):
+    def test_na_has_level_1(self):
         collection_check = FakeCollectBaseCheck(level_index=1)
         collection_check.run()
 

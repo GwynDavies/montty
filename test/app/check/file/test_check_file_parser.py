@@ -43,7 +43,7 @@ class TestCheckFileParser():
         assert class_found.get_base_class_names()[1] == "CollectAllCheck"
 
         # Check we are parsing the class methods as well
-        assert class_found.get_number_methods() == 2
+        assert class_found.get_number_methods() == 1
         assert "__init__" in class_found.get_method_names()
 
         # Check the "to string" method working

@@ -322,7 +322,6 @@ Collection checks, allow you to build your check - from a **collection** of *sub
 
 * BashCheck,
 * PythonCheck
-* Other collection checks
 
 <br/>
 <br/>
@@ -347,8 +346,9 @@ No dependency on prior checks ...
 
 * **CollectAllCheck**
     * Runs **all** checks in the collection sequentially in the order added - irrespective of the completion status of prior checks
-    * The check gets the highest status status, of any of the checks run:
+    * The check gets the highest status, of any of the checks run:
         * (Highest: ALERT -> WARN -> OKAY -> NA :Lowest)
+    * Checks cannot return status of NA
     * Use when checks **do not** depend on each other
 
 <br/>
@@ -357,27 +357,31 @@ No dependency on prior checks ...
 Dependent on prior checks ...
 
 * **CollectDependCheck**
-    * Runs all checks sequentially in the order added, **only** if the prior check completion status *was* OKAY 
-    * Else the check exits, and takes the status of the prior check
-    * Use when checks, depend on each prior check
-    * It is recommended, you restrict the states of the checks in the collection, to be either *ALERT* or *OKAY*
+    * Runs all checks sequentially in the order added, **only** if the check completion status *was* OKAY - for EACH check 
+    * Else the check exits, and takes the status of the current check. The rest of the checks are not run
+    * Use when checks, depend on EACH prior check returning OKAY
+    * Checks cannot return status of NA
+    * Use when checks **do** depend on each other
 
 <br/>
+<br/>
 
-* **CollectFilterCheck**
-    * Intended to allow for **selectively** running a check
-    * A check only runs, if its prior check is successful, having status OKAY
-    * The prior check acts as a "filter"
-    * You should make the prior "filter" check, return a status of OKAY or NA, and not ALERT
-    * Use when checks **should only run** - if a prior check passes
+### Filtering of collection checks
+
+Collection checks can be set to conditionally run, determined on the results of 1 or more checks that are added as "filters"
+
+* Intended to allow for **selectively** running a collection check
+* The collection check only runs, if ALL its "added" filter checks - have status OKAY
+* Checks added as a filter, cannot return status of NA
+* You should make the prior "filter" check, return a status of OKAY or NA, and not ALERT, as ALERT status causes a visual indication in MonTTY that an ALERT status was found
 
 <br/>
 <br/>      
 
 ```
-                         .-----------.  .---------------------------------.
-   MonTTY                | RootCheck |  | Collect[All|Depend|Filter]Check | 
-                         '-----------'  '---------------------------------'
+                         .-----------.  .--------------------------.
+   MonTTY                | RootCheck |  | Collect[All|Depend]Check | 
+                         '-----------'  '--------------------------'
                               ^                         ^
                               |                         |
                               '-------------------------'

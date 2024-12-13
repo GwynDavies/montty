@@ -34,32 +34,28 @@
 #         - Active
 #
 
-from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
-from montty.app.check.collect_filter_check import CollectFilterCheck
+from montty.app.check.collect_depend_check import CollectDependCheck
 from montty.app.check.bash_check import BashCheck
 
 
-class CheckFilterDnfAutomatic(RootCheck, CollectFilterCheck):
+class CheckFilterDnfAutomatic(RootCheck, CollectDependCheck):
     def __init__(self):
         self._header_title = 'chk_008_clf_rhel_dnf_automatic.py - Check FILTER'
         super().__init__(self._header_title, level_index=0)
 
-        self._check_filter = CheckFilter()
+        # Are we on Debian / Ubuntu
+        super().add_filter_check(FilterCheck())
 
-        self._check_dnf_automatic = CheckDnfAutomatic()
-
-    # @implement
-    def _add_checks(self, checks: list[Check]) -> None:
-        checks.append(self._check_filter)
-        checks.append(self._check_dnf_automatic)
+        # Is Dnf 'Automatic' Package Installed, Enabled and Active
+        super().add_check(CheckDnfAutomatic())
 
 
 # --------------------------------------------------------------------
 # Filter check
 # --------------------------------------------------------------------
 
-class CheckFilter(BashCheck):
+class FilterCheck(BashCheck):
     def __init__(self):
         header_title = ' (f) Filter DISTRO in "rhel"'
         bash_script = 'mty_util/mtyhost.sh'

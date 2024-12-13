@@ -44,19 +44,40 @@ class CollectBaseCheck(Check, ABC):
         # Body
         self._body: CheckBody = CheckBody()
 
+        # Filter checks
+        self._filter_checks = []
+
         # Checks
         self._checks = []
 
     # @implement
     def run(self) -> None:
-        self._run_checks()
+        # Process any filter checks first - ALL have to have status "okay"
+        # in order for the checks that make up the collection - to be run
+        for filter_check in self.get_filter_checks():
+            filter_check.run()
+            self._body.append_header(filter_check.get_header())
+            self._body.append_body(filter_check.get_body())
+            if not filter_check.get_status().is_okay():
+                return
+
+        # Only run the check(s) if the filter checks above passed
+        self.run_checks()
+
+    def get_filter_checks(self):
+        return self._filter_checks
+
+    def get_checks(self):
+        return self._checks
+
+    def add_filter_check(self, filter_check: Check) -> None:
+        self._filter_checks.append(filter_check)
+
+    def add_check(self, check: Check) -> None:
+        self._checks.append(check)
 
     @abstractmethod
-    def _add_checks(self, checks: list[Check]) -> None:
-        raise Exception("You must override this method")  # pragma: no cover
-
-    @abstractmethod
-    def _run_checks(self) -> None:
+    def run_checks(self) -> None:
         raise Exception("You must override this method")  # pragma: no cover
 
     # @implement

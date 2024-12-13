@@ -36,7 +36,6 @@ from system_data import SystemMemDataCheck
 from system_data import SystemDiskDataCheck
 from system_data import SystemNetDataCheck
 from system_data import SystemBootDataCheck
-from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
 from montty.app.check.collect_all_check import CollectAllCheck
 
@@ -46,16 +45,11 @@ class CheckHostCpuEtc(RootCheck, CollectAllCheck):
         header_title = 'chk_003_cla_python_host_cpu_etc.py- HOST CPU ETC.'
         super().__init__(header_title, level_index=0)
 
-        self._cpu_check = SystemCpuDataCheck()
-        self._mem_check = SystemMemDataCheck()
-        self._disk_check = SystemDiskDataCheck()
-        self._net_check = SystemNetDataCheck()
-        self._boot_check = SystemBootDataCheck()
+        # You can add 1 or more filter checks if you want
+        # super().add_filter_check(FilterCheck())
 
-    # @implement
-    def _add_checks(self, checks: list[Check]) -> None:
-        checks.append(self._cpu_check)
-        checks.append(self._mem_check)
-        checks.append(self._disk_check)
-        checks.append(self._net_check)
-        checks.append(self._boot_check)
+        super().add_check(SystemCpuDataCheck())
+        super().add_check(SystemMemDataCheck())
+        super().add_check(SystemDiskDataCheck())
+        super().add_check(SystemNetDataCheck())
+        super().add_check(SystemBootDataCheck())

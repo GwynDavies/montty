@@ -45,9 +45,9 @@ class BashCheck(Check):
     # @implement
 
     def run(self):
-        self._run_command()
+        self.run_command()
 
-    def _run_command(self):
+    def run_command(self):
         self._command.run()
 
         # Get status

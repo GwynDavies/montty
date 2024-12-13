@@ -20,31 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from abc import ABC, abstractmethod
 from montty.app.check.check import Check
+from montty.app.status import Status
 from montty.app.check.collect_base_check import CollectBaseCheck
 
 
-class CollectDependCheck(CollectBaseCheck, ABC):
+class CollectDependCheck(CollectBaseCheck):
     # @implement
-    def _run_checks(self) -> None:
-        ''' Run a collection of checks, if the prior check was OKAY 
+    def run_checks(self) -> None:
+        ''' Run all of a collection of checks, if each prior check in the collection,
+        has a status of OKAY
 
-        Run each check ONLY if the prior check status was OKAY '''
-        self._add_checks(self._checks)
+        NOTE: A check status of NA is not allowed'''
 
         prior_check: Check = None
 
-        for check in self._checks:
+        for check in super().get_checks():
             if not prior_check or prior_check.get_status().is_okay():
                 check.run()
-                self._status.merge(check.get_status())
+                status_result: Status = check.get_status()
+                if status_result.is_na():
+                    raise ValueError(
+                        "Check status cannot be NA, must be either OKAY or WARN or ALERT")
+
+                super().get_status().merge(status_result)
                 self._body.append_header(check.get_header())
                 self._body.append_body(check.get_body())
                 prior_check = check
             else:
                 break
-
-    @abstractmethod
-    def _add_checks(self, checks: list[Check]) -> None:
-        raise Exception("You must override this method")

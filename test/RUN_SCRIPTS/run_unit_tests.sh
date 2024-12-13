@@ -45,6 +45,8 @@ pytest -s -vv --cov --cov-report term-missing ./
 #pytest -s -vv --cov --cov-report term-missing ./app/check/test_check_header.py
 #pytest -s -vv --cov --cov-report term-missing ./app/check/test_program_check.py
 #pytest -s -vv --cov --cov-report term-missing ./app/check/test_collect_base_check.py
+#pytest -s -vv --cov --cov-report term-missing ./app/check/test_collect_all_check.py
+#pytest -s -vv --cov --cov-report term-missing ./app/check/test_collect_depend_check.py
 
 # Manager
 #pytest -s -vv --cov --cov-report term-missing ./app/manager/test_manager_app.py

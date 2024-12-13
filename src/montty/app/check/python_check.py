@@ -47,9 +47,9 @@ class PythonCheck(Check, ABC):
 
     # @implement
     def run(self) -> None:
-        self._run_program()
+        self.run_program()
 
-    def _run_program(self) -> None:
+    def run_program(self) -> None:
         self._run_class()
         self._set_class_result(self._status, self._body)
 

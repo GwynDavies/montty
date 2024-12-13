@@ -29,13 +29,14 @@ display_menu() {
     echo "'---------------------------------------------'"
     echo "  1. Static analysis"
     echo "  2. Unit tests"
-    echo "  3. Security scan"
-    echo "  4. Shellcheck CHECKS bash scripts"
-    echo "  5. Unit test CHECKS bash scripts"
-    echo "  6. Directory scan"
-    echo "  7. What is git ignored"
+    echo "  3. Clear pytest cache"
+    echo "  4. Security scan"
+    echo "  5. Shellcheck CHECKS bash scripts"
+    echo "  6. Unit test CHECKS bash scripts"
+    echo "  7. Directory scan"
+    echo "  8. What is git ignored"
     echo ""
-    echo "  8. Exit"
+    echo "  9. Exit"
     echo ""
 }
 
@@ -48,22 +49,26 @@ option_2() {
 }
 
 option_3() {
-    ./RUN_SCRIPTS/run_sec.sh
+    pytest --cache-clear
 }
 
 option_4() {
-    ./RUN_SCRIPTS/run_shellcheck.sh
+    ./RUN_SCRIPTS/run_sec.sh
 }
 
 option_5() {
-    ./RUN_SCRIPTS/run_mtycmd_test.sh  
+    ./RUN_SCRIPTS/run_shellcheck.sh
 }
 
 option_6() {
-    ./RUN_SCRIPTS/run_dir_scan.sh  
+    ./RUN_SCRIPTS/run_mtycmd_test.sh  
 }
 
 option_7() {
+    ./RUN_SCRIPTS/run_dir_scan.sh  
+}
+
+option_8() {
     ./RUN_SCRIPTS/run_check_git_ignored.sh
 }
 
@@ -72,7 +77,7 @@ clear
 # Main loop
 while true; do
     display_menu
-    read -p "Please enter your choice (1-8): " choice
+    read -r -p "Please enter your choice (1-9): " choice
 
     case $choice in
         1)
@@ -97,6 +102,9 @@ while true; do
             option_7
             ;;
         8)
+            option_8
+            ;;
+        9)
             echo "Exiting the program."
             break
             ;;

@@ -46,7 +46,6 @@
 #
 
 from montty.app.status import Status
-from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
 from montty.app.check.collect_depend_check import CollectDependCheck
 from montty.app.check.bash_check import BashCheck
@@ -57,21 +56,31 @@ class CheckUncomplicatedFireWall(RootCheck, CollectDependCheck):
         header_title = 'chk_005_cld_bash_sudo_ufw.py - UNCOMPLICATED FIREWALL (UFW)'
         super().__init__(header_title, level_index=0)
 
+        # Are we on Debian / Ubuntu
+        super().add_filter_check(FilterCheck())
+
         # Is UFW installed
-        self._ufw_installed = UfwInstalled()
+        super().add_check(UfwInstalled())
 
         # Do I have sudo access to its command so I can check its full status to
         # see the rules configured
-        self._ufw_sudo_ability = UfwSudoAbility()
+        super().add_check(UfwSudoAbility())
 
         # Check the full status and see if the expected rules have been configured
-        self._ufw_rules = UfwRules()
+        super().add_check(UfwRules())
 
-    # @implement
-    def _add_checks(self, checks: list[Check]) -> None:
-        checks.append(self._ufw_installed)
-        checks.append(self._ufw_sudo_ability)
-        checks.append(self._ufw_rules)
+
+# --------------------------------------------------------------------
+# Filter check
+# --------------------------------------------------------------------
+
+class FilterCheck(BashCheck):
+    def __init__(self):
+        header_title = ' (f) Filter DISTRO in "debian / ubuntu"'
+        bash_script = 'mty_util/mtyhost.sh'
+        arg1 = 'distro_in'
+        arg2 = 'debian\nubuntu'
+        super().__init__(header_title, bash_script, arg1, arg2, level_index=1)
 
 
 # --------------------------------------------------------------------

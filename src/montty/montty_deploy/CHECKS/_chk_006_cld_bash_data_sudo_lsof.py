@@ -59,7 +59,6 @@
 from lsof_command_data import AllowedLsofRowValues
 from lsof_command_data import ActualLsofRowValues
 from montty.app.status import Status
-from montty.app.check.check import Check
 from montty.app.check.root_check import RootCheck
 from montty.app.check.collect_depend_check import CollectDependCheck
 from montty.app.check.bash_check import BashCheck
@@ -71,20 +70,17 @@ class LsofCollectionDependCheck(RootCheck, CollectDependCheck):
         header_title = 'chk_006_cld_bash_data_sudo_lsof.py - OUTGOING CONNECTIONS (LSOF)'
         super().__init__(header_title, level_index=0)
 
-        # Check we have sudo ability for lsof command
-        self._lsof_sudo_ability_check = LsofSudoAbilityCheck()
+        # You can also add 1 or more filter checks here
+        # super().add_filter_check(FilterCheck())
 
-        # Data file of allowed values
-        data_files_dir = DataFilesDir()
-        data_file_full_name = data_files_dir.get_full_path('chk_006_lsof.csv')
+        # Check we have sudo ability for lsof command
+        super().add_check(LsofSudoAbilityCheck())
 
         # Check lsof command output matches allowed values from data file
-        self._lsof_results_check = LsofResultsCheck(data_file_full_name)
-
-    # @implement
-    def _add_checks(self, checks: list[Check]) -> None:
-        checks.append(self._lsof_sudo_ability_check)
-        checks.append(self._lsof_results_check)
+        # of allowed values
+        data_files_dir = DataFilesDir()
+        data_file_full_name = data_files_dir.get_full_path('chk_006_lsof.csv')
+        super().add_check(LsofResultsCheck(data_file_full_name))
 
 
 class LsofSudoAbilityCheck(BashCheck):
